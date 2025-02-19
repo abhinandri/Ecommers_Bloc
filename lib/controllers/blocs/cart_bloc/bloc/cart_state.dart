@@ -9,6 +9,6 @@ class CartState {
       0, (total, item) => total + (item.product.price * item.quantity));
 
   CartState copywith({List<CartItem>? items}) {
-    return CartState(items: items ?? this.items);
+    return CartState(items: items ?? this.items);  
   }
 }

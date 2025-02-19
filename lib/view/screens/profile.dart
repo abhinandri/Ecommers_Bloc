@@ -55,15 +55,15 @@ class ProfilePage extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(60),
-                      child: Image.network(
-                        'https://images.unsplash.com/photo-1534528741775-53994a69daeb',
+                      child: Image.asset(
+                        'lib/assets/1edf8f80-c009-4e56-a492-a62d93615df6.jpg',
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Emma Watson',
+                    'Abhinand',
                     style: GoogleFonts.playfairDisplay(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
@@ -72,7 +72,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'emma.watson@email.com',
+                    'abhinandri864@gmail.com',
                     style: GoogleFonts.quicksand(
                       fontSize: 16,
                       color: Colors.black54,

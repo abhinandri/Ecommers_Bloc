@@ -34,5 +34,25 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<ClearCart>((event, emit) {
       emit(state.copywith(items: []));
     });
+
+    on<IncreaseQuantity>(((event, emit) {
+      final updatedItems = state.items.map((item) {
+        if (item.product.id == event.productId) {
+          return CartItem(product: item.product, quantity: item.quantity + 1);
+        }
+        return item;
+      }).toList();
+      emit(state.copywith(items: updatedItems));
+    }));
+
+    on<DecreaseQuantity>((event, emit) {
+      final updatedItems = state.items.map((item) {
+        if (item.product.id == event.productId) {
+          return CartItem(product: item.product, quantity: item.quantity - 1);
+        }
+        return item;
+      }).toList();
+      emit(state.copywith(items: updatedItems));
+    });
   }
 }

@@ -1,5 +1,4 @@
 import 'package:ecommers/controllers/blocs/cart_bloc/bloc/cart_bloc.dart';
-import 'package:ecommers/models/cart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,6 +32,16 @@ class CartPage extends StatelessWidget {
                 child: Text('Your cart is empty.'),
               );
             }
+
+            // Calculate the subtotal
+            double subtotal = state.items.fold(
+              0,
+              (total, cartItem) =>
+                  total + (cartItem.product.price * cartItem.quantity),
+            );
+
+            double shipping = 10.0; // Fixed shipping cost
+            double total = subtotal + shipping; // Total price
 
             return Column(
               children: [
@@ -115,7 +124,12 @@ class CartPage extends StatelessWidget {
                                                 icon: const Icon(Icons.remove,
                                                     size: 20,
                                                     color: Colors.black87),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  context.read<CartBloc>().add(
+                                                      DecreaseQuantity(cartItem
+                                                          .product.id
+                                                          .toString()));
+                                                },
                                               ),
                                               Text(
                                                 cartItem.quantity.toString(),
@@ -128,7 +142,12 @@ class CartPage extends StatelessWidget {
                                                 icon: const Icon(Icons.add,
                                                     size: 20,
                                                     color: Colors.black87),
-                                                onPressed: () {},
+                                                onPressed: () {
+                                                  context.read<CartBloc>().add(
+                                                      IncreaseQuantity(cartItem
+                                                          .product.id
+                                                          .toString()));
+                                                },
                                               ),
                                             ],
                                           ),
@@ -187,7 +206,7 @@ class CartPage extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '\$299.97',
+                            '${subtotal}',
                             style: GoogleFonts.quicksand(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -208,7 +227,7 @@ class CartPage extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '\$10.00',
+                            '${shipping}',
                             style: GoogleFonts.quicksand(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -233,7 +252,7 @@ class CartPage extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '\$309.97',
+                            '${total}',
                             style: GoogleFonts.playfairDisplay(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
